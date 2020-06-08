@@ -1,33 +1,40 @@
 <?php
 
-require_once __DIR__."/../src/AbstractUnit.php";
-require_once __DIR__."/../src/Interfaces/WorkerableInterface.php";
-require_once __DIR__."/../src/Interfaces/AttackableInterface.php";
-require_once __DIR__."/../src/Peasant.php";
-require_once __DIR__."/../src/Builder.php";
-require_once __DIR__."/../src/Archer.php";
-require_once __DIR__."/../src/Mage.php";
+/* Including both daughter classes */
+require_once 'Worker.php';
+require_once 'Soldier.php';
 
-use Units\Peasant;
-use Units\Builder;
-use Units\Archer;
-use Units\Mage;
+/* Use them to create objects after */
+use Daughter\Worker;
+use Daughter\Soldier;
 
-$bruno = new Peasant('Bruno');
-$regis = new Builder('Régis');
-$gaspard = new Archer('Gaspard');
-$rene = new Mage('René');
+/* Creating array for new objects */
+$workerCollection = [];
+$soldierCollection = [];
 
-try{
-    $bruno->walk("right");
-    $regis->walk("top");
-    $gaspard->walk("right");
-    $rene->walk("top");
-}catch(\Exception $e){
-    echo "<br/>Catch: ".$e->getMessage();
-}finally{
-    echo "<br/>".$bruno;
-    echo "<br/>".$regis;
-    echo "<br/>".$gaspard;
-    echo "<br/>".$rene;
+/* Use walk() method with different direction and catch Exception
+ * To try it, let's give a bad direction like to put an object off the map;
+ */
+try {
+    /* Creating two object collections */
+    for ($i = 0; $i < 11; $i++)
+        $workerCollection[] = new Worker();
+    for ($i = 0; $i < 11; $i++)
+        $soldierCollection[] = new Soldier();
+
+    $soldierCollection[1]->walk("right");
+    $soldierCollection[1]->walk("top");
+    $soldierCollection[1]->walk("left");
+    /* Displaying "A l'attaque !" */
+    $soldierCollection[7]->attack();
+    /* Displaying "Je travaille !" */
+    $workerCollection[8]->work();
+    /* Launch Exception "Hors de la carte !" */
+    $soldierCollection[1]->walk("left");
+}
+catch (\Exception $e) {
+    echo "Exception from daughter classes : ". $e->getMessage() . "\n";
+}
+finally {
+    echo "Script ending." . "\n";
 }

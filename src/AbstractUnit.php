@@ -1,46 +1,56 @@
 <?php
 
-namespace Units;
+/**
+ * Unit abstract class
+ *
+ * PHP Version 7.2
+ *
+ * @category Abstract
+ * @package  Class
+ * @author   Yavuz KUTUK <yavuz@wildcodeschool.fr>
+ */
+
+namespace Unit;
 
 /**
- * Class AbstractUnit
- * @package Units
+ * Unit class.
+ *
+ * @category Abstract
+ * @package  Class
+ * @author   Yavuz KUTUK <yavuz@wildcodeschool.fr>
  */
 abstract class AbstractUnit
 {
-    /**
-     * @var array
-     */
-    protected $position = [0,0];
-    /**
-     * @var string
-     */
-    protected $name;
-
-    protected $speed;
+    private $lifePoint;
+    protected $position;
 
     /**
-     * AbstractUnit constructor.
-     * @param string $name
+     * Mother construct with two declarations
      */
-    public function __construct(string $name)
+    public function __construct()
     {
-        $this->name = $name;
-        $this->speed=1;
+        $this->position = [0, 0];
+        $this->lifePoint = 0;
     }
 
     /**
-     * @return string
+     * Displaying object's positions
+     *
+     * @return string Returning object name with its positions
      */
-    public function __toString()
+    public function __toString(): string
     {
-       return $this->name." <strong>".get_class($this)."</strong> se positionne a cet emplacement : "
-           .$this->position[0]." et ".$this->position[1];
+        return get_class($this) . " object position : x ["
+            .$this->position[0]."] y ["
+            .$this->position[1]."].\n";
     }
 
     /**
-     * @param string $direction
-     * @return mixed
+     * Displaying object's positions
+     *
+     * @param string $direction A given direction
+     *
+     * @return void None is returned
      */
-    abstract public function walk(string $direction);
+    abstract public function walk(string $direction): void;
 }
